@@ -1,9 +1,59 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        Test
-    </head>
-    <body>
-        Test
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Example</title>
+</head>
+<body>
+
+    <h1>CORS Example</h1>
+
+    <div id="result"></div>
+
+    <script>
+        // Funkcja do obsługi żądania AJAX z uwzględnieniem CORS
+        function makeCorsRequest() {
+            var url = 'https://mamichalowski.github.io'; // Zastąp to rzeczywistym adresem API
+
+            var xhr = new XMLHttpRequest();
+
+            if ("withCredentials" in xhr) {
+                // Przeglądarki wspierające standardowy sposób CORS
+                xhr.open('GET', url, true);
+            } else if (typeof XDomainRequest != "undefined") {
+                // Internet Explorer obsługujący XDomainRequest
+                xhr = new XDomainRequest();
+                xhr.open('GET', url);
+            } else {
+                // CORS nie jest obsługiwany w tej przeglądarce
+                alert('CORS not supported');
+                return;
+            }
+
+            xhr.onload = function() {
+                // Obsługa udanego żądania
+                var response = JSON.parse(xhr.responseText);
+                document.getElementById('result').innerHTML = 'Response: ' + JSON.stringify(response);
+            };
+
+            xhr.onerror = function() {
+                // Obsługa błędu żądania
+                alert('Request failed');
+            };
+
+            xhr.send();
+        }
+
+        // Wywołanie funkcji przy kliknięciu przycisku
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('result').innerHTML = 'Click the button to make a CORS request';
+            document.getElementById('makeRequestButton').addEventListener('click', makeCorsRequest);
+        });
+    </script>
+
+    <button id="makeRequestButton">Make CORS Request</button>
+
+</body>
 </html>
+
