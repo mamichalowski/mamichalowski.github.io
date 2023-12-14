@@ -8,8 +8,6 @@
 <body>
 
     <h1>Origin Check</h1>
-
-    <button id="checkOriginButton">Check Origin</button>
     <div id="result"></div>
 
     <script>
@@ -30,8 +28,8 @@
             }
         }
 
-        // Wywołaj funkcję po kliknięciu przycisku
-        document.getElementById('checkOriginButton').addEventListener('click', checkOrigin);
+        // Wywołaj funkcję po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', checkOrigin);
     </script>
 
 </body>
