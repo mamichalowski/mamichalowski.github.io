@@ -3,57 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORS Example</title>
+    <title>Origin Check</title>
 </head>
 <body>
 
-    <h1>CORS Example</h1>
+    <h1>Origin Check</h1>
 
+    <button id="checkOriginButton">Check Origin</button>
     <div id="result"></div>
 
     <script>
-        // Funkcja do obsługi żądania AJAX z uwzględnieniem CORS
-        function makeCorsRequest() {
-            var url = 'https://mamichalowski.github.io'; // Zastąp to rzeczywistym adresem API
+        // Funkcja do sprawdzania origin
+        function checkOrigin() {
+            var allowedOrigin = 'https://www.wp.pl';
 
-            var xhr = new XMLHttpRequest();
+            // Pobierz origin z nagłówka referer
+            var currentOrigin = document.referrer;
 
-            if ("withCredentials" in xhr) {
-                // Przeglądarki wspierające standardowy sposób CORS
-                xhr.open('GET', url, true);
-            } else if (typeof XDomainRequest != "undefined") {
-                // Internet Explorer obsługujący XDomainRequest
-                xhr = new XDomainRequest();
-                xhr.open('GET', url);
+            if (currentOrigin === allowedOrigin) {
+                // Origin jest zgodny, wykonaj odpowiednie działania
+                document.getElementById('result').innerHTML = 'Origin is allowed: ' + currentOrigin;
             } else {
-                // CORS nie jest obsługiwany w tej przeglądarce
-                alert('CORS not supported');
-                return;
+                // Origin nie jest zgodny, odrzuć połączenie
+                document.getElementById('result').innerHTML = 'Origin is not allowed: ' + currentOrigin;
+                alert('Connection rejected. Origin is not allowed.');
             }
-
-            xhr.onload = function() {
-                // Obsługa udanego żądania
-                var response = JSON.parse(xhr.responseText);
-                document.getElementById('result').innerHTML = 'Response: ' + JSON.stringify(response);
-            };
-
-            xhr.onerror = function() {
-                // Obsługa błędu żądania
-                alert('Request failed');
-            };
-
-            xhr.send();
         }
 
-        // Wywołanie funkcji przy kliknięciu przycisku
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('result').innerHTML = 'Click the button to make a CORS request';
-            document.getElementById('makeRequestButton').addEventListener('click', makeCorsRequest);
-        });
+        // Wywołaj funkcję po kliknięciu przycisku
+        document.getElementById('checkOriginButton').addEventListener('click', checkOrigin);
     </script>
-
-    <button id="makeRequestButton">Make CORS Request</button>
 
 </body>
 </html>
-
