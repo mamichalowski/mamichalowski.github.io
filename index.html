@@ -23,13 +23,13 @@
                 document.getElementById('result').innerHTML = 'Origin is allowed: ' + currentOrigin;
             } else {
                 // Origin nie jest zgodny, odrzuć połączenie
-                document.getElementById('result').innerHTML = 'Origin is not allowed: ' + currentOrigin;
+              //  document.getElementById('result').innerHTML = 'Origin is not allowed: ' + currentOrigin;
                 alert('Connection rejected. Origin is not allowed.');
             }
         }
 
         // Wywołaj funkcję po załadowaniu strony
-       // document.addEventListener('DOMContentLoaded', checkOrigin);
+        document.addEventListener('DOMContentLoaded', checkOrigin);
     </script>
 
 </body>
