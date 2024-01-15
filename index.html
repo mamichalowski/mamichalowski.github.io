@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,4 +33,42 @@
     </script>
 
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origin Check</title>
+</head>
+<body>
+
+    <h1>Origin Check</h1>
+    <div id="result"></div>
+
+    <script>
+        // Funkcja do sprawdzania origin
+        function checkOrigin() {
+            // Pobierz origin z nagłówka referer
+            var currentOrigin = document.referrer;
+
+            // Usuń warunek porównujący zezwolony origin
+            // var allowedOrigin = 'https://www.wp.pl';
+            // if (currentOrigin === allowedOrigin) {
+                // Origin jest zgodny, wykonaj odpowiednie działania
+                document.getElementById('result').innerHTML = 'Origin is allowed: ' + currentOrigin;
+            // } else {
+                // Origin nie jest zgodny, odrzuć połączenie
+                // document.getElementById('result').innerHTML = 'Origin is not allowed: ' + currentOrigin;
+                // alert('Connection rejected. Origin is not allowed.');
+            // }
+        }
+
+        // Wywołaj funkcję po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', checkOrigin);
+    </script>
+
+</body>
 </html>
+
